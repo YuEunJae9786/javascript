@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- 1. 아래 checkbox버튼을 클릭했을 때, "동의했습니다" 경고창을 띄우고 value값을 확인 -->
+    <input type="checkbox" value="1" onclick="check(this)">조항1
+    <input type="checkbox" value="2" onclick="check(this)">조항2
+    <input type="checkbox" value="3" onclick="check(this)">조항3
+    <input type="checkbox" value="4" onclick="check(this)">조항4
+
+    <script>
+
+        function check(a) {
+            alert(a.value + '번 조항에 동의했습니다.')
+            console.log(a.value);
+        }
+        
+    </script>
+
+    <hr/>
+
+    <!-- 2. 확인을 클릭했을때 ID의 공백여부, 기억하기의 체크여부 확인하세요 -->
+    ID: <input type="text" id="id">
+    기억하기:<input type="checkbox" id="remember" value="y">
+    <button type="button" id="check">확인</button>
+
+    <script>
+
+        var btnCheck = document.getElementById("check");
+
+        btnCheck.addEventListener("click", checkBtn);
+
+        function checkBtn() {
+            var id = document.getElementById("id");
+            if(id.value.length == 0){
+                console.log(id.id + "는 공백입니다.");
+            } else {
+                console.log(id.id + "는 공백이 아닙니다.");
+            }
+            
+            var checkbox = document.getElementById("remember");
+            if(checkbox.checked === true){
+                console.log("기억하기 o");
+            } else {
+                console.log("기억하기 x");
+            }
+        }
+
+    </script>
+
+    <script>
+
+        var id = document.getElementById("id");
+        var remember = document.getElementById("remember");
+        var ch = document.getElementById("check");
+
+        ch.onclick = function() {
+            
+            console.log("id값의 여부:" + id.value);
+            console.log("check여부:" + remember.checked);
+
+        }
+
+    </script>
+    
+</body>
+</html>

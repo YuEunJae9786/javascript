@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 스크립트 태그는 요기에서 작성 -->
+    <script>
+
+        window.onload = () => {
+
+            document.getElementById("ok1").addEventListener("click", () => {
+                if(confirm('이동하시겠습니까?')) location.href="https://www.naver.com";
+            });
+            document.getElementById("ok2").addEventListener("click", () => {
+                if(confirm('이동하시겠습니까?')) location.href="https://www.google.com";
+            });
+
+        }
+
+    </script>
+    
+    <button id="ok1">네이버로이동</button>
+    <button id="ok2">구글로이동</button>
+
+</body>
+</html>
