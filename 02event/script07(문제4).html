@@ -10,19 +10,31 @@
     
     <h1>자바스크립트 카운트</h1>
 
-    <input type="text" id="count">
-    <button type="button" id="plus">+</button>
-    <button type="button" id="minus">-</button>
+    <!-- <input type="number" id="count" value="0"> -->
+
+    <input type="text" value="0" id="count" readonly>
+    <button type="button" id="plus" onclick="check(this)">+</button>
+    <button type="button" id="minus" onclick="check(this)">-</button>
 
     <script>
         var id = document.getElementById("count");
 
         document.getElementById("plus").addEventListener("click", () => id.value++ );
         document.getElementById("minus").addEventListener("click", () => {
-            if(id.value > 0)
-                id.value--;
+            if(id.value <= 0){
+                alert("0보다 작을 수 없다.");
+                return;
+            }
+            id.value--;
          } );
-        
+
+        // function check(a) {
+        //     if(a.id === 'plus'){
+        //         id.value++;
+        //     } else if(a.id == 'minus'){
+        //         id.value--;
+        //     }
+        // }
         
     </script>
 
