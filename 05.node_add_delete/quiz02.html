@@ -11,10 +11,10 @@
     <h2>할일 목록 만들기</h2>
 
     <div class="nameBlock">
+        <h3 class="name"></h3>
         <input type="text" placeholder="이름을 적으세요" id="name">
         <button type="button" id="btn1">확인</button>
     </div>
-    <div class="name"></div>
 
     <input type="text" placeholder="당신의 할일을 적으세요" id="list">
     <button type="button" id="btn2">확인</button>
@@ -26,19 +26,32 @@
 
         document.getElementById("btn1").onclick = () => {
             
-            var div = document.createElement("div");
-            div.innerHTML = "<h3>" + document.getElementById("name").value + "님 안녕하세요 </h3>";
+            var name = document.getElementsByClassName("name")[0];
+            name.innerHTML = document.getElementById("name").value + "님 안녕하세요";
             
-            document.querySelector(".name").appendChild(div);
-            document.querySelector(".nameBlock").style.display = "none";
+            // document.querySelector("#name").style.display = "none";
+            // document.getElementById("btn1").style.display = "none";
+            document.querySelector("#name").remove();
+            document.getElementById("btn1").remove();
         }
 
         document.getElementById("btn2").onclick = () => {
 
             var li = document.createElement("li");
             li.innerHTML = document.getElementById("list").value + "<button type='button'>X</button>";
-
+            document.getElementById("list").value = "";
+            
             document.querySelector(".list").appendChild(li);
+            
+            li.querySelector("button").addEventListener("click", deleteTodo);
+        }
+
+        // 삭제기능
+        function deleteTodo() {
+            // 문제
+            // 1. x버튼클릭시 해당버튼 요소를 판별할수 없음
+            // 2. x버튼클릭시 부모요소만 li를 삭제 해야함
+            alert(1);
         }
 
     </script>

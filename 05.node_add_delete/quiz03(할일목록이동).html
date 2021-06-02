@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h2>할일 목록 만들기</h2>
+
+    <div class="nameBlock">
+        <h3 class="name"></h3>
+        <input type="text" placeholder="이름을 적으세요" id="name">
+        <button type="button" id="btn1">확인</button>
+    </div>
+
+    <input type="text" placeholder="당신의 할일을 적으세요" id="list">
+    <button type="button" id="btn2">확인</button>
+    <ul class="list">
+
+    </ul>
+
+    <script>
+
+        document.getElementById("btn1").onclick = () => {
+            
+            var name = document.getElementsByClassName("name")[0];
+            name.innerHTML = document.getElementById("name").value + "님 안녕하세요";
+            
+            // document.querySelector("#name").style.display = "none";
+            // document.getElementById("btn1").style.display = "none";
+            document.querySelector("#name").remove();
+            document.getElementById("btn1").remove();
+        }
+
+        document.getElementById("btn2").onclick = () => {
+
+            var li = document.createElement("li");
+            li.innerHTML = document.getElementById("list").value;
+
+            var btn = document.createElement("button");
+            btn.innerHTML = "x";
+            btn.addEventListener("click", deleteTodo);
+
+            var up = document.createElement("button");
+            up.innerHTML = "↑";
+            up.addEventListener("click", upTodo);
+            
+            var down = document.createElement("button");
+            down.innerHTML = "↓";
+            down.onclick = downTodo;
+            
+            li.appendChild(btn);
+            li.appendChild(up);
+            li.appendChild(down);
+            document.querySelector(".list").appendChild(li);
+            document.getElementById("list").value = "";
+            
+        }
+
+        // 삭제기능
+        function deleteTodo() {
+            // 문제
+            // 1. x버튼클릭시 해당버튼 요소를 판별할수 없음
+            // 2. x버튼클릭시 부모요소만 li를 삭제 해야함
+
+            if(confirm("해당 리스트를 삭제하시겠습니까?")){
+                event.target.parentElement.remove();
+            }
+        }
+
+        // 위 이동 기능
+        function upTodo() {
+            var list = document.querySelector(".list");
+            var current = event.target.parentElement;
+            var previous = current.previousElementSibling;
+            
+            if(previous === null) {
+                alert("첫번째 리스트입니다.");
+                return;
+            }
+
+            if(confirm("위로 이동하겠습니까?")){
+                list.insertBefore(current, previous);
+            }
+        }
+
+        // 아래 이동 기능
+        function downTodo() {
+            var list = document.querySelector(".list");
+            var current = event.target.parentElement;
+            var next = current.nextElementSibling;
+
+            if(next === null){
+                alert("마지막 리스트입니다.");
+                return;
+            }
+
+            if(confirm("아래로 이동하겠습니까?")){
+                list.insertBefore(next, current);
+            }
+        }
+
+    </script>
+    
+</body>
+</html>
