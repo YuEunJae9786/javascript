@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: white; text-align: center;">
+
+    <h2>style속성 활용하기</h2>
+
+    <button type="button" class="dark" id="btn1">어둡게보기</button>
+    <button type="button" class="name" id="btn2">이름보기</button>
+    <hr/>
+    
+    <div style="overflow: hidden; padding: 5px; border: 1px solid #777; margin: 0 auto; width: 620px;">
+        <div class="img" style="float: left; margin: 5px; box-sizing: border-box;">
+            <img src="../03node_selector/img/1.jpg" width="300px">
+        </div>
+        <div class="content" style="float: left; margin: 5px; border: 1px solid #777; min-height: 200px; width: 300px; box-sizing: border-box;">
+            자바스키릅트는 ....
+        </div>
+    </div>
+
+    <script>
+        var body = document.body;
+
+        document.getElementById("btn1").onclick = () => {
+            
+            if(document.getElementById("btn1").classList.contains("dark")){
+                body.style.backgroundColor = "black";
+                body.style.color = "white";
+                document.getElementById("btn1").innerHTML = "밝게보기";
+            }
+            
+            if(document.getElementById("btn1").classList.contains("white")){
+                body.style.backgroundColor = "white";
+                body.style.color = "black";
+                document.getElementById("btn1").innerHTML = "어둡게보기";
+            }
+            
+            document.getElementById("btn1").classList.toggle("white");
+        }
+
+        document.getElementById("btn2").onclick = () => {
+            
+            document.getElementById("btn2").classList.toggle("viewContent");
+
+            var content = document.querySelector(".content");
+
+            if(document.getElementById("btn2").classList.contains("name")){
+                document.getElementById("btn2").innerHTML = "이름보기";
+                content.innerHTML = "자바스크립트는 ...";
+            }
+
+            if(document.getElementById("btn2").classList.contains("viewContent")){
+                document.getElementById("btn2").innerHTML = "내용보기";
+                content.innerHTML = "이름: 자바";
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>

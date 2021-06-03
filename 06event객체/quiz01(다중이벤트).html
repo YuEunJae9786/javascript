@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h3>다중이벤트 처리</h3>
+    <div class="img">
+        <img src="../03node_selector/img/1.jpg" width="100">
+        <img src="../03node_selector/img/2.jpg" width="100">
+        <img src="../03node_selector/img/3.jpg" width="100">
+        <img src="../03node_selector/img/4.jpg" width="100">
+    </div>
+
+    <p>결과:</p>
+    <img src="../03node_selector/img/1.jpg" class="content" width="300">
+
+    <script>
+
+        var image = document.querySelector(".content");
+        var images = document.querySelectorAll(".img > img");
+        
+        for(var i = 0; i < images.length; i++) {
+            images[i].onclick = () => {
+                image.src = event.target.src;
+            }
+        }
+        // 예를 들어서 img가 1000개 라면?
+
+    </script>
+
+</body>
+</html>

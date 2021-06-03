@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        table {border-collapse: collapse; border-spacing: 0;}
+        th, tr, td { border: 1px solid #777;}
+    </style>
+
+</head>
+<body>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>첫글</td>
+                <td>hello world</td>
+                <td><button type="button">삭제</button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>두번째글</td>
+                <td>ㅎㅎㅎㅎㅎ</td>
+                <td><button type="button">삭제</button></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>세번째글</td>
+                <td>ㅋㅋㅋㅋㅋㅋ</td>
+                <td><button type="button">삭제</button></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>네번째글</td>
+                <td>홍길동이에요/td>
+                <td><button type="button">삭제</button></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>다섯번째글</td>
+                <td>이벤트 위임 !?</td>
+                <td><button type="button">삭제</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        // 1. 다중이벤트 - 같은종류에 버튼에 동일 이벤트
+        // var list = document.querySelectorAll("button");
+        // for(var i = 0; i < list.length; i++){
+        //     list[i].onclick = () => {
+        //         event.target.parentElement.parentElement.remove();
+        //     }
+        // }
+
+        // 2. 이벤트위임
+        var tableList = document.querySelector("table > tbody");
+        tableList.onclick = () => {
+
+            if(event.target.nodeName !== 'BUTTON') return;
+
+            event.target.parentElement.parentElement.remove();
+        }
+    </script>
+
+</body>
+</html>
