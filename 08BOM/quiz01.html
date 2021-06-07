@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .main-banner {
+            background: linear-gradient(90deg, #0c151c 1.3125rem, transparent 1%) 50%, linear-gradient(#0c151c 1.3125rem, transparent 1%) 50%, #263747;
+            background-size: 1.5rem 1.5rem;
+            padding: 6rem 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        .main-banner > img {
+            display: none;
+            position: relative; /* 내 위치 기반으로 */
+            left: 0;
+            animation: topIn 0.5s linear;
+        }
+
+        @keyframes topIn {
+            from{
+                opacity: 0;
+                top: -50px;
+            } to{
+                opacity: 1;
+                top: 0px;
+            }
+        }
+
+        /* .main-banner > img {
+            animation: fadeIn 1s linear;
+        }
+
+        @keyframes fadeIn {
+            from{
+                opacity: 0;
+                transform: translateY(-50%);
+            } to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        } */
+
+    </style>
+
+</head>
+<body>
+
+    <div class="main-banner">
+        <img src="img/1.jpg" width="300">
+        <img src="img/2.jpg" width="300">
+        <img src="img/3.jpg" width="300">
+        <img src="img/4.jpg" width="300">
+    </div>
+
+    <script>
+
+        var stopInterval;
+        var index = 0;
+        var list = document.querySelector(".main-banner");
+        function changeImg() {
+            // console.log(list.children);
+            // console.log(list.children[0])
+            list.children[index].style.display = "inline";
+            index++;
+
+            if(index >= list.children.length){ // 인터벌종료
+                clearInterval(stopInterval);
+            }
+        }
+
+        (function() {
+            stopInterval = setInterval(changeImg, 500);
+        })();
+        
+        // var imgCount = 1;
+        // function imgFade() {
+        //     var img = document.createElement("img");
+        //     img.src = "img/" + imgCount++ + ".jpg";
+        //     img.width = "300";
+            
+        //     var main_banner = document.querySelector(".main-banner");
+        //     console.log(main_banner);
+        //     main_banner.appendChild(img);
+
+        //     if(imgCount > 4){
+        //         clearInterval(stopInterval);
+        //     }
+        // }
+        
+        // var stopInterval;
+        // (function() {
+        //     stopInterval = setInterval(imgFade, 1000);
+        // })();
+        
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h2>시간을 선택하세요</h2>
+
+    <select class="hour">
+    </select>
+
+    <select class="minute">
+
+    </select>
+
+    <select class="second">
+
+    </select>
+
+    <button type="button" id="timer">시간설정</button>
+    <button type="button" id="start">타이머시작</button>
+
+    <script>
+        var hour = document.querySelector(".hour");
+        for(var i = 0; i < 100 ; i++){
+            var hours = document.createElement("option");
+            hours.innerHTML = (i < 10 ? "0" + i : i);
+
+            hour.appendChild(hours);
+        }
+
+        var minute = document.querySelector(".minute");
+        for(var i = 0 ; i < 60 ; i++){
+            var minutes = document.createElement("option");
+            minutes.innerHTML = (i < 10 ? "0" + i : i);
+
+            minute.appendChild(minutes);
+        }
+
+        var second = document.querySelector(".second");
+        for(var i = 0 ; i < 60 ; i++){
+            var seconds = document.createElement("option");
+            seconds.innerHTML = (i < 10 ? "0" + i : i);
+
+            second.appendChild(seconds);
+        }
+
+        var timer = document.getElementById("timer");
+        var stop = document.getElementById("stop");
+    </script>
+    
+</body>
+</html>

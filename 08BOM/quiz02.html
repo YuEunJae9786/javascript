@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {margin: 0; padding: 0;}
+
+        .bgImg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .timer {
+            color: white;
+        }
+
+        @keyframes fadeIn{
+            from{
+                opacity: 0.5;
+            } to{
+                opacity: 1;
+            }
+        }
+    </style>
+
+</head>
+<body data-img ='{"1": "img/1.jpg", "2": "img/2.jpg", "3": "img/3.jpg", "4": "img/4.jpg"}'>
+
+    <!-- 배경을 넣을 이미지의 형태 -->
+    <!-- <img src="img/1.jpg" class="bgImg"> -->
+
+    <div class="timer">
+        <h2>타이머</h2>
+        <h2 class="clock"></h2>
+    </div>
+
+    <!-- 
+        1. body아래에 있는 데이터셋을 이용해서 10초마다 배경을 바꾸는 작업
+        2. 타이머 아래에 1초마다 현재시간을 바꾸는 작업
+
+        데이터셋의 길이를 확인하는 문법은 검색
+     -->
+    <!-- <script>
+
+        var imgCount = 1;
+        var imgdata = JSON.parse(document.body.dataset.img);
+        function changeImg() {
+            var preImg = document.body.querySelector(".bgImg");
+            if(preImg !== null){
+                preImg.remove();
+            }
+
+            var img = document.createElement("img");
+            img.src = imgdata[imgCount++];
+            console.log(img.src);
+            img.className = "bgImg";
+
+            if(imgCount > Object.keys(imgdata).length){
+                imgCount = 1;
+            }
+
+            document.body.appendChild(img);
+        }
+
+        function time() {
+            var date = new Date();
+
+            var timer = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" 
+            + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" 
+            + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+            document.querySelector(".clock").innerHTML = timer;
+        }
+
+        (function() {
+            time();
+            changeImg();
+            setInterval(time, 1000);
+            setInterval(changeImg, 10000);
+        })();
+
+    </script> -->
+
+    <!-- 쌤 답 -->
+    <script>
+        // 시간처리함수
+        var clock = document.querySelector(".clock");
+        function createTime() {
+            var date = new Date(); /* 현재날짜 */
+            
+            var hour = date.getHours();
+            var min = date.getMinutes();
+            var second = date.getSeconds();
+
+            var time = (hour < 10 ? "0" + hour : hour) + ":"+ 
+                        (min < 10 ? "0" + min : min) + ":" + 
+                        (second < 10 ? "0" + second : second);
+
+            clock.innerHTML = time;
+        }
+
+        // 이미지처리함수
+        var count = 0; // 초기값 0
+        var dataImg = JSON.parse(document.body.dataset["img"]);
+        function createImg() {
+            
+            var img = document.createElement("img");
+            img.src = dataImg[++count];
+            img.classList.add("bgImg");
+
+            document.body.appendChild(img);
+
+            if(count == 4) count = 0;
+        }
+
+        (function() {
+            createTime();
+            setInterval(createTime, 1000);
+            createImg();
+            setInterval(createImg, 3000);
+        })();
+    </script>
+    
+</body>
+</html>
