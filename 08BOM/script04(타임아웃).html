@@ -23,14 +23,14 @@
 
         // setTimeout의 실행함수에 매개변수를 주고싶다면 ????
         // 1st
-        setTimeout( test("hello world"), 3000);
+        // setTimeout( test("hello world"), 3000);
 
-        function test(text) {
+        // function test(text) {
 
-            return function() {
-                alert(text);
-            }
-        }
+        //     return function() {
+        //         alert(text);
+        //     }
+        // }
 
         // 2st
         // (function(text) {
@@ -44,15 +44,15 @@
     </script>
 
     <script>
-        // for(var i = 1; i <= 4; i++){
+        for(var i = 1; i <= 4; i++){
 
-        //     (function(i) {
-        //         setTimeout(function() {
-        //             alert(i);
-        //         }, 1000);
-        //     })(i);
+            (function(i) {
+                setTimeout(function() {
+                    alert(i);
+                }, 1000);
+            })(i);
 
-        // }
+        }
     </script>
     
 </body>
