@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        ul, li {padding: 0; margin: 0;}
+        .list {width: 80%; margin: 0 auto; overflow: hidden;}
+        .list .movie {height: 300px; width: 33.3333%; float: left; box-sizing: border-box; position: relative; min-height: 350px;}
+        .list .movie img {position: absolute; top:0; left:0; width: 100px;}
+        .list .movie .inner {padding-left: 100px;}
+        .list .movie .summary {overflow: scroll; height: 100px;}
+        .list .movie .genres {list-style: none; display: inline-block;}
+    </style>
+
+</head>
+<body>
+    <h3>영화 상영 리스트</h3>
+
+    <div class="list">
+        <!-- <div class="movie">
+            <img src="xx">
+            <div class="inner">
+                <h3 class="title"></h3>
+                <h3 class="year"></h3>
+                <ul class="genres">
+                    <li>장르</li>
+                </ul>
+                <p class="summary"></p>
+            </div>
+        </div> -->
+    </div>
+
+    <script>
+        // 연습용
+        // http://jsonplaceholder.typicode.com/todos/1
+        
+        function ajax() {
+            fetch("https://yts.mx/api/v2/list_movies.json?sort_by=year")
+                .then( (response) => {
+                    if(response.status != 200){
+                        alert("네트워크상 오류가 발생했습니다. 다시 시도하세요");
+                        return;
+                    }
+
+                    return response.json();
+                })
+                .then( (jsonData) => {
+
+                    var list = document.querySelector(".list");
+
+                    // var data = jsonData["data"]["movies"];
+                    var data = jsonData.data.movies;
+
+                    // 회전할때마다 처리할 작업
+                    var tag = ""; // 누적할 문자열 변수
+                    for(var i = 0; i < data.length; i++){
+                        
+                        var title = data[i].title;
+                        var year = data[i].year;
+                        var genres = data[i].genres;
+                        var summary = data[i].summary;
+                        var img = data[i].medium_cover_image;
+
+                        tag += '<div class="movie">';
+                        tag += '<img src="' + img + '">';
+                        tag += '<div class="inner">';
+                        tag += '<h3 class="title">' + title + '</h3>';
+                        tag += '<h3 class="year">' + year + '</h3>';
+                        tag += '<ul class="genres">';
+                                for(var j in genres){
+                                    tag += '<li>-' + genres[j] + '</li>';
+                                }
+                        tag += '</ul>';
+                        tag += '<p class="summary">' + summary + '</p>';
+                        tag += '</div>';
+                        tag += '</div>';
+                    } // end for
+
+                    list.innerHTML = tag;
+                });
+        }
+
+        (function() {
+            ajax();
+        })();
+
+    </script>
+    
+</body>
+</html>
