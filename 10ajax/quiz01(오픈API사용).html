@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=인증키&libraries=services,clusterer,drawing"></script>
+
+</head>
+<body>
+    
+    <div id="map" style="width:500px;height:400px;"></div>
+    
+    <script>
+        
+        var myPosition = {lat: "", lng: ""}
+        // 위치정보 성공시 실행할 함수
+        function success(position) {
+            console.log(position);
+            
+            myPosition.lat = parseFloat(position.coords.latitude);
+            myPosition.lng = parseFloat(position.coords.longitude);
+
+            getFetch(); // 비동기 함수 호출
+        }
+
+        // 위치정보 실패시 실행할 함수
+        function fail() {
+            alert("팝업창을 해제하고 위치정보를 확인해주세요");
+        }
+
+        // 위치정보 갱신
+        setInterval(getFetch, 1000 * 60);
+        
+        function getFetch() {
+            
+            fetch("http://openapi.seoul.go.kr:8088/인증키/json/bikeList/1/1000/")
+                .then( (response) => {
+                    if(response.status != 200){
+                        alert("서버 오류 입니다. 관리자에게 문의하세요.");
+                        return;
+                    }
+
+                    return response.json();
+                })
+                .then( (jsonData) => {
+
+                    data = jsonData.rentBikeStatus.row;
+                    
+                    var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+                    var options = { //지도를 생성할 때 필요한 기본 옵션
+                        center: new kakao.maps.LatLng(myPosition.lat, myPosition.lng), //지도의 중심좌표.
+                        level: 9 //지도의 레벨(확대, 축소 정도)
+                    };
+                    
+                    var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+                    var markerImage = new kakao.maps.MarkerImage('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png', new kakao.maps.Size(24, 35));
+                    
+                    var clusterer = new kakao.maps.MarkerClusterer({
+                        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+                        averageCenter: false, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+                        minLevel: 9, // 클러스터 할 최소 지도 레벨 
+                    });
+
+                    var marker = new kakao.maps.Marker({
+                        position: new kakao.maps.LatLng( myPosition.lat, myPosition.lng ),
+                        image: markerImage,
+                        title: 'my houes'
+                    });
+                    
+                    clusterer.addMarker(marker);
+                    
+                    for(var i = 0; i < data.length; i++){
+
+                        position_lat = parseFloat(data[i].stationLatitude);
+                        position_lng = parseFloat(data[i].stationLongitude);
+
+                        marker = new kakao.maps.Marker({
+                            position: new kakao.maps.LatLng( position_lat, position_lng ),
+                            image: markerImage,
+                            title: data[i].stationName
+                        });
+
+                        clusterer.addMarker(marker);
+                    }
+                    
+                });
+        }
+
+        navigator.geolocation.getCurrentPosition(success, fail);
+    </script>
+    
+</body>
+</html>

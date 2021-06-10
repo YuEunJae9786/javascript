@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=인증키&callback=initMap&libraries=&v=weekly" async></script>
+
+    <!-- 3. 화면에 적용할 css -->
+    <style>
+        #map {
+          height: 500px; /* 사이즈 조정 */
+          width: 500px;
+        }
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+      </style>
+
+</head>
+<body>
+
+    <h3>구글 지도 확인</h3>
+    <!-- 2. 화면에 맵을 나타낼 요소 -->
+    <div id="map"></div>
+
+    <script>
+        /* 1. 맵 시작함수 정의 */
+        let map;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 37.5172, lng: 127.0473 }, /* 지도의 가운데 */
+                zoom: 8, /* 확대 */
+            });
+        }
+    </script>
+
+    
+</body>
+</html>

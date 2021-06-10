@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script async src="https://maps.googleapis.com/maps/api/js?key=인증키&callback=initMap&libraries=&v=weekly"></script>
+
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+           * element that contains the map. */
+        #map {
+            height: 80%;
+            width: 80%;
+            margin: 0 auto;
+        }
+    
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+</head>
+<body>
+
+    <h3>서울시 공공 WIFI 위치정보</h3>
+
+    <div id="map"></div>
+
+    <script>
+
+        var myPosition = {lat: "", lng: ""};
+
+        // 위치정보 성공시 실행할 함수
+        function success(position) {
+            
+            myPosition.lat = position.coords.latitude;
+            myPosition.lng = position.coords.longitude;
+
+            getFetch(); // 비동기 함수 호출
+        }
+
+        // 위치정보 실패시 실행할 함수
+        function fail() {
+            alert("팝업창을 해제하고 위치정보를 확인해주세요")
+        }
+
+        function getFetch() {
+            // 서울시 공공 WIFI위치정보 받아오기.
+            fetch("http://openapi.seoul.go.kr:8088/인증키/json/TbPublicWifiInfo_DB/1/1000/")
+                .then( (response) => {
+                    if(response.status != 200){
+                        alert("서버상 문제가 발생했습니다.");
+                        return;
+                    }
+
+                    return response.json();
+                })
+                .then( (jsonData) => {
+                    
+                    var data = jsonData.TbPublicWifiInfo_DB.row;
+                    console.log(data);
+
+                    // console.log(data[0].LAT);
+                    // console.log(data[0].LNT);
+                    // console.log(data[0].X_SWIFI_ADRES1);
+                    // console.log(data[0].X_SWIFI_ADRES2);
+
+                    // 2. 구글 맵 생성
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 15,
+                        center: myPosition,
+                    });
+
+                    for(var i = 0; i < data.length; i++){
+
+                        // 3. 마커 생성
+                        new google.maps.Marker({
+                            position: { lat: parseFloat(data[i].LNT), lng: parseFloat(data[i].LAT) },
+                            map,
+                            title: data[i].X_SWIFI_ADRES1 + data[i].X_SWIFI_ADRES2,
+                        });
+                    }
+
+                });
+
+
+        }
+
+        // 1. 구글맵 시작
+        function initMap() {
+
+            // 네비게이터로 현재 위치정보를 받는다.
+            navigator.geolocation.getCurrentPosition(success, fail);
+           
+        }
+    </script>
+    
+</body>
+</html>
